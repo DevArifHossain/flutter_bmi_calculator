@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  line_icons: ^0.2.0
+  flutter_icons: ^1.0.0
 
   cupertino_icons: ^0.1.2
 
