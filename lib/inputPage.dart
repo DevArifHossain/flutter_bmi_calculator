@@ -2,14 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 import 'appCard.dart';
+import 'constants.dart';
 import 'userGender.dart';
-
-const Color darkPurple = Color(0xFF090D20);
-const Color lightPurple = Color(0xFF1D1F33);
-const Color inactiveCard = Color(0xFF101427);
-const Color red = Color(0xFFEB1654);
-
-const double bottomConHeight = 65.0;
 
 enum Genders { male, female }
 
@@ -19,9 +13,11 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Color maleCardColor = inactiveCard;
-  Color femaleCardColor = inactiveCard;
+  Color maleCardColor = kInactiveCard;
+  Color femaleCardColor = kInactiveCard;
   Genders selectedGender = Genders.male;
+
+  int height = 180;
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +35,12 @@ class _InputPageState extends State<InputPage> {
                     child: AppCard(
                       onPress: () {
                         setState(() {
-                          selectedGender = Genders.female;
+                          selectedGender = Genders.male;
                         });
                       },
                       cardColor: selectedGender == Genders.male
-                          ? lightPurple
-                          : inactiveCard,
+                          ? kLightPurple
+                          : kInactiveCard,
                       cardChild: UserGender(
                         gender: 'MALE',
                         genderIcon: MaterialCommunityIcons.human_male,
@@ -55,12 +51,12 @@ class _InputPageState extends State<InputPage> {
                     child: AppCard(
                       onPress: () {
                         setState(() {
-                          selectedGender = Genders.male;
+                          selectedGender = Genders.female;
                         });
                       },
                       cardColor: selectedGender == Genders.female
-                          ? lightPurple
-                          : inactiveCard,
+                          ? kLightPurple
+                          : kInactiveCard,
                       cardChild: UserGender(
                         gender: 'FEMALE',
                         genderIcon: MaterialCommunityIcons.human_female,
@@ -72,11 +68,40 @@ class _InputPageState extends State<InputPage> {
             ),
             Expanded(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Expanded(
                     child: AppCard(
-                      cardColor: lightPurple,
+                      cardColor: kLightPurple,
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Text(
+                            'HEIGHT',
+                            style: kLabelTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.alphabetic,
+                            children: <Widget>[
+                              Text(height.toString(), style: kLargeTextStyle),
+                              Text('cm', style: kLabelTextStyle),
+                            ],
+                          ),
+                          Slider(
+                            value: height.toDouble(),
+                            min: 100,
+                            max: 200,
+                            inactiveColor: kDarkPurple,
+                            activeColor: kRed,
+                            onChanged: (double newValue) {
+                              setState(() {
+                                height = newValue.round();
+                              });
+                            },
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -88,21 +113,21 @@ class _InputPageState extends State<InputPage> {
                 children: <Widget>[
                   Expanded(
                     child: AppCard(
-                      cardColor: lightPurple,
+                      cardColor: kLightPurple,
                     ),
                   ),
                   Expanded(
                     child: AppCard(
-                      cardColor: lightPurple,
+                      cardColor: kLightPurple,
                     ),
                   ),
                 ],
               ),
             ),
             Container(
-              color: red,
+              color: kRed,
               width: double.infinity,
-              height: bottomConHeight,
+              height: kBottomConHeight,
               margin: EdgeInsets.only(top: 20.0),
             ),
           ],
