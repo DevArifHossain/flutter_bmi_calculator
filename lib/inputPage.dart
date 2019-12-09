@@ -6,9 +6,12 @@ import 'userGender.dart';
 
 const Color darkPurple = Color(0xFF090D20);
 const Color lightPurple = Color(0xFF1D1F33);
+const Color inactiveCard = Color(0xFF101427);
 const Color red = Color(0xFFEB1654);
 
-const double bottomConHeight = 75.0;
+const double bottomConHeight = 65.0;
+
+enum Genders { male, female }
 
 class InputPage extends StatefulWidget {
   @override
@@ -16,6 +19,10 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  Color maleCardColor = inactiveCard;
+  Color femaleCardColor = inactiveCard;
+  Genders selectedGender = Genders.male;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +37,14 @@ class _InputPageState extends State<InputPage> {
                 children: <Widget>[
                   Expanded(
                     child: AppCard(
-                      cardColor: lightPurple,
+                      onPress: () {
+                        setState(() {
+                          selectedGender = Genders.female;
+                        });
+                      },
+                      cardColor: selectedGender == Genders.male
+                          ? lightPurple
+                          : inactiveCard,
                       cardChild: UserGender(
                         gender: 'MALE',
                         genderIcon: MaterialCommunityIcons.human_male,
@@ -39,7 +53,14 @@ class _InputPageState extends State<InputPage> {
                   ),
                   Expanded(
                     child: AppCard(
-                      cardColor: lightPurple,
+                      onPress: () {
+                        setState(() {
+                          selectedGender = Genders.male;
+                        });
+                      },
+                      cardColor: selectedGender == Genders.female
+                          ? lightPurple
+                          : inactiveCard,
                       cardChild: UserGender(
                         gender: 'FEMALE',
                         genderIcon: MaterialCommunityIcons.human_female,
