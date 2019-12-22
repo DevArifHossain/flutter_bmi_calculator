@@ -1,9 +1,12 @@
+import 'package:bmi_calculator/components/reuseableCardOne.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 import 'appCard.dart';
+import 'components/bottomButton.dart';
+import 'components/roundIconButton.dart';
 import 'constants.dart';
-import 'userGender.dart';
+import 'screens/resultPage.dart';
 
 enum Genders { male, female }
 
@@ -18,6 +21,8 @@ class _InputPageState extends State<InputPage> {
   Genders selectedGender = Genders.male;
 
   int height = 180;
+  int weight = 80;
+  int age = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +46,7 @@ class _InputPageState extends State<InputPage> {
                       cardColor: selectedGender == Genders.male
                           ? kLightPurple
                           : kInactiveCard,
-                      cardChild: UserGender(
+                      cardChild: ReUseAbleCardOne(
                         gender: 'MALE',
                         genderIcon: MaterialCommunityIcons.human_male,
                       ),
@@ -57,7 +62,7 @@ class _InputPageState extends State<InputPage> {
                       cardColor: selectedGender == Genders.female
                           ? kLightPurple
                           : kInactiveCard,
-                      cardChild: UserGender(
+                      cardChild: ReUseAbleCardOne(
                         gender: 'FEMALE',
                         genderIcon: MaterialCommunityIcons.human_female,
                       ),
@@ -84,7 +89,7 @@ class _InputPageState extends State<InputPage> {
                             crossAxisAlignment: CrossAxisAlignment.baseline,
                             textBaseline: TextBaseline.alphabetic,
                             children: <Widget>[
-                              Text(height.toString(), style: kLargeTextStyle),
+                              Text(height.toString(), style: kMassiveTextStyle),
                               Text('cm', style: kLabelTextStyle),
                             ],
                           ),
@@ -114,21 +119,92 @@ class _InputPageState extends State<InputPage> {
                   Expanded(
                     child: AppCard(
                       cardColor: kLightPurple,
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'WEIGHT',
+                            style: kLabelTextStyle,
+                          ),
+                          Text(
+                            weight.toString(),
+                            style: kMassiveTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              RoundIconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    this.weight++;
+                                  });
+                                },
+                                icon: MaterialCommunityIcons.plus,
+                              ),
+                              RoundIconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    this.weight--;
+                                  });
+                                },
+                                icon: MaterialCommunityIcons.minus,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(
                     child: AppCard(
                       cardColor: kLightPurple,
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'AGE',
+                            style: kLabelTextStyle,
+                          ),
+                          Text(
+                            age.toString(),
+                            style: kMassiveTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              RoundIconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    this.age++;
+                                  });
+                                },
+                                icon: MaterialCommunityIcons.plus,
+                              ),
+                              RoundIconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    this.age--;
+                                  });
+                                },
+                                icon: MaterialCommunityIcons.minus,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-            Container(
-              color: kRed,
-              width: double.infinity,
-              height: kBottomConHeight,
-              margin: EdgeInsets.only(top: 20.0),
+            BottomButton(
+              text: 'CALCULATE',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ResultPage()),
+                );
+              },
             ),
           ],
         ));

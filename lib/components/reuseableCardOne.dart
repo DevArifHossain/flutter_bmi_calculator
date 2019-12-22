@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'constants.dart';
 
-class UserGender extends StatelessWidget {
-  UserGender({@required this.gender, @required this.genderIcon});
+class ReUseAbleCardOne extends StatelessWidget {
+  ReUseAbleCardOne({@required this.gender, @required this.genderIcon});
 
   final String gender;
   final IconData genderIcon;
